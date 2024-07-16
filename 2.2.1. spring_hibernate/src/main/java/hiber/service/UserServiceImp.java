@@ -26,4 +26,14 @@ public class UserServiceImp implements UserService {
       return userDao.listUsers();
    }
 
+   @Transactional(readOnly = true)
+   @Override
+   public User findByCar(String model, int series) {
+      User user = userDao.findByCar(model, series);
+      if (user == null) {
+         throw new RuntimeException("User not found for car model: " + model + " and series: " + series);
+      }
+      return user;
+   }
+
 }
